@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const sdkSrc = "https://content.onemarketnetwork.com/livereceipt/lr-sdk.min.js";
+// const sdkSrc =
+//   "https://content.sandbox.onemarketnetwork.com/livereceipt/lr-sdk.min.js";
+
+// const sdkSrc = "https://content.dev.one.market/livereceipt/lr-sdk.min.js";
 
 const Container = styled.div`
   margin: 0 0 1rem;
@@ -40,21 +44,19 @@ class Widget extends Component {
    * @memberof Widget
    */
   onSdkReady = () => {
-    console.log("SDK is done loading: ", window.OM.optedIn);
-
+    // console.log("SDK is done loading: ", window.OM.optedIn);
     // The SDK keeps track of the user's intent to opt in. Check if this flag is
     // true first before confirming the user opt in, otherwise you might
     // accidentally optin in a user that didn't want to.
-    if (window.OM.optedIn) {
-      console.log(
-        "User has intent to opt-in. Time to opt in the user: ",
-        this.props.optInRef
-      );
-
-      // The key method to call to finally opt the user in. It is vital
-      // `confirmUserOptIn` is called only after the SDK has finished intializing.
-      window.OM.confirmUserOptIn(this.props.optInRef);
-    }
+    // if (window.OM.optedIn) {
+    //   console.log(
+    //     "User has intent to opt-in. Time to opt in the user: ",
+    //     this.props.optInRef
+    //   );
+    //   // The key method to call to finally opt the user in. It is vital
+    //   // `confirmUserOptIn` is called only after the SDK has finished intializing.
+    //   window.OM.confirmUserOptIn(this.props.optInRef);
+    // }
   };
 
   loadedSdk = () => {
@@ -66,7 +68,10 @@ class Widget extends Component {
       postCheckout: hasOptInRef,
       optInRef: optInRef,
       //   Only set the callback if we are postCheckout
-      afterInitCb: hasOptInRef ? this.onSdkReady : undefined
+      afterInitCb: hasOptInRef ? this.onSdkReady : undefined,
+      userPref: {
+        data: []
+      }
     });
   };
 
